@@ -1,10 +1,15 @@
 const std = @import("std");
 const math = std.math;
 
+pub const HexOrientation = enum {
+    PointyTop,
+    FlatTop,
+};
+
 // TODO - extern this struct, figure out ABI for C,
 //        declare the functions of this library
 //        in a C header file
-pub const CubicHex = struct {
+pub const CubicHex = packed struct(u96) {
     q: i32,
     r: i32,
     s: i32,
@@ -14,30 +19,41 @@ pub const CubicHex = struct {
         .r = 0,
         .s = 0,
     };
-    pub const UP_LEFT = CubicHex{
+    // Pointy top - up & to the left
+    // Flat top - up
+    pub const Q_ZERO_S_POS = CubicHex{
         .q = 0,
         .r = -1,
         .s = 1,
     };
 
-    pub const UP_RIGHT = CubicHex{
+    // Pointy top - up & to the right
+    // Flat top - right
+    pub const S_ZERO_Q_POS = CubicHex{
         .q = 1,
         .r = -1,
         .s = 0,
     };
-
-    pub const RIGHT = CubicHex{
+    // Pointy top - right
+    // Flat top - down & to the right
+    pub const R_ZERO_Q_POS = CubicHex{
         .q = 1,
         .r = 0,
         .s = -1,
     };
-    pub const DOWN_RIGHT = CubicHex{ .q = 0, .r = 1, .s = -1 };
-    pub const DOWN_LEFT = CubicHex{
+    // Pointy top - down & to the right
+    // Flat top - down
+    pub const Q_ZERO_R_POS = CubicHex{ .q = 0, .r = 1, .s = -1 };
+    // Pointy top - down & to the left
+    // Flat top - left
+    pub const S_ZERO_R_POS = CubicHex{
         .q = -1,
         .r = 1,
         .s = 0,
     };
-    pub const LEFT = CubicHex{ .q = -1, .r = 0, .s = 1 };
+    // Pointy top - left
+    // Flat top - up & to the left
+    pub const R_ZERO_S_POS = CubicHex{ .q = -1, .r = 0, .s = 1 };
 
     pub fn Multiply(a: CubicHex, b: CubicHex) CubicHex {
         return CubicHex{
@@ -120,4 +136,12 @@ test "distance between hexes is calculated correctly" {
     const sameHex = CubicHex{ .q = 1, .r = 1, .s = 1 };
     const zeroDistance = CubicHex.Distance(sameHex, sameHex);
     try std.testing.expectEqual(zeroDistance, 0);
+}
+
+test "serializing cubic hex into integer results in guaranteed unique numbers for each permutation of q, s, r values" {
+    const hex = CubicHex{ .q = 1, .r = 2, .s = 3 };
+
+    const serialized: u128 = @as(u32, hex.q) << 20 | @as(u32, hex.r) << 10 | @as(u32, hex.s);
+    try std.io.getStdOut().writer().print("Serialized: {}\n", serialized);
+    try std.testing.expectEqual(serialized, 0x0000040C);
 }

@@ -1,0 +1,6 @@
+# Ignore binaries
+./tests/bin/**
+./bin/**
+
+# Ignore zig stuff (until it's ready)
+./zig/**
