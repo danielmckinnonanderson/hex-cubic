@@ -5,6 +5,16 @@
 
 #include "hex.h"
 
+const struct HexNormalVectors HEX_NORMALS = {
+    .ZERO          = {  0,  0,  0 },
+    .R_PLANE_Q_NEG = { -1,  0,  1 },
+    .R_PLANE_Q_POS = {  1,  0, -1 },
+    .Q_PLANE_R_NEG = {  0, -1,  1 },
+    .Q_PLANE_R_POS = {  0,  1, -1 },
+    .S_PLANE_Q_NEG = { -1,  1,  0 },
+    .S_PLANE_Q_POS = {  1, -1,  0 },
+};
+    
 
 uint32_t Hex_Serialize(HexCubic *hex)
 {
@@ -37,6 +47,7 @@ HexCubic Hex_Add(HexCubic a, HexCubic b)
     return result;
 }
 
+
 // Subtract two hexes (cartesian)
 HexCubic Hex_Subtract(HexCubic a, HexCubic b)
 {
@@ -49,11 +60,25 @@ HexCubic Hex_Subtract(HexCubic a, HexCubic b)
     return result;
 }
 
-HexCubic *Hex_Line(HexCubic a, HexCubic b, uint16_t distance, HexCubic *line)
-{
-    assert(line != NULL);
 
-    for (int i = 0; i <= distance; i++) {
+uint16_t Hex_DistanceFromOrigin(HexCubic hex)
+{
+    return (abs(hex.q) + abs(hex.r) + abs(hex.s)) / 2;
+}
+
+
+uint16_t Hex_Distance(HexCubic start, HexCubic end)
+{
+    const HexCubic difference = Hex_Subtract(start, end);
+    return Hex_DistanceFromOrigin(difference);
+}
+
+
+HexCubic *Hex_Line(HexCubic start, HexCubic end, uint16_t line_length)
+{
+    HexCubic line[line_length];
+
+    for (int i = 0; i <= line_length; i++) {
     }
 
     return line;

@@ -8,6 +8,12 @@ int RunTests(void)
 {
     const TestFunction tests[] = {
         Test_HexAdd,
+        Test_HexSubtract,
+        Test_HexDistanceFromOrigin,
+        Test_HexDistance,
+        Test_HexDirection,
+        Test_HexLine,
+
         Test_HexSerDe,
     };
 
@@ -23,7 +29,6 @@ int RunTests(void)
         }
     }
 
-    printf("\n");
     if (failures == 0) {
         printf(ANSI_COLOR_GREEN "All tests passed!\n" ANSI_COLOR_RESET);
     } else {
@@ -32,6 +37,7 @@ int RunTests(void)
 
     return 0;
 }
+
 
 int main(void)
 {
