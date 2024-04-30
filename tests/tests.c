@@ -2,15 +2,20 @@
 #include "tests.h"
 
 
-const TestFunction tests[] = {
-    Test_HexSerDe,
-};
 
 
-int RunTests(void) {
+int RunTests(void)
+{
+    const TestFunction tests[] = {
+        Test_HexAdd,
+        Test_HexSerDe,
+    };
+
     int failures = 0;
 
-    for (int i = 0; i < sizeof(tests) / sizeof(TestFunction); i++) {
+    int test_count = sizeof(tests) / sizeof(tests[0]);
+    printf("Running %d tests\n", test_count);
+    for (int i = 0; i < test_count; i++) {
         int failed_assertions = tests[i]();
         if (failed_assertions > 0) {
             printf(ANSI_COLOR_RED "Test %d failed %d assertions\n" ANSI_COLOR_RESET, i, failed_assertions);

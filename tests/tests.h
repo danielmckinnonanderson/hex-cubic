@@ -17,6 +17,10 @@ typedef int (*TestFunction)(void);
 
 // Add names of Test functions here
 int Test_HexSerDe(void);
+int Test_HexAdd(void);
+int Test_HexSubtract(void);
+int Test_HexLine(void);
+int Test_HexDistance(void);
 
 #endif // HEX__TESTS_H
 
