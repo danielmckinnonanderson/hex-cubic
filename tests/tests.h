@@ -22,6 +22,7 @@ int Test_HexSubtract(void);
 int Test_HexLine(void);
 int Test_HexDistanceFromOrigin(void);
 int Test_HexDistance(void);
+int Test_HexGetAdjacentHex(void);
 int Test_HexDirection(void);
 
 #endif // HEX__TESTS_H

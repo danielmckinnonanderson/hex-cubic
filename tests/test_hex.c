@@ -102,6 +102,60 @@ int Test_HexDistance(void)
 }
 
 
+int Test_HexGetAdjacentHex(void)
+{
+    const HexCubic start = {
+        .q = -2,
+        .r = 1,
+        .s = 1,
+    };
+
+    char *assertion_failed_msg = "HexCubic get adjacent hex: result_a did not equal expected";
+    const HexCubic result_a = Hex_GetAdjacentHex(start, RPlaneQNeg);
+    ASSERT(result_a.q == start.q - 1, assertion_failed_msg);
+    ASSERT(result_a.r == start.r, assertion_failed_msg);
+    ASSERT(result_a.s == start.s + 1, assertion_failed_msg);
+
+    assertion_failed_msg = "HexCubic get adjacent hex: result_b did not equal expected";
+    const HexCubic result_b = Hex_GetAdjacentHex(start, RPlaneQPos);
+    ASSERT(result_b.q == start.q + 1, assertion_failed_msg);
+    ASSERT(result_b.r == start.r, assertion_failed_msg);
+    ASSERT(result_b.s == start.s - 1, assertion_failed_msg);
+
+    assertion_failed_msg = "HexCubic get adjacent hex: result_c did not equal expected";
+    const HexCubic result_c = Hex_GetAdjacentHex(start, QPlaneRNeg);
+    ASSERT(result_c.q == start.q, assertion_failed_msg);
+    ASSERT(result_c.r == start.r - 1, assertion_failed_msg);
+    ASSERT(result_c.s == start.s + 1, assertion_failed_msg);
+
+    assertion_failed_msg = "HexCubic get adjacent hex: result_d did not equal expected";
+    const HexCubic result_d = Hex_GetAdjacentHex(start, QPlaneRPos);
+    ASSERT(result_d.q == start.q, assertion_failed_msg);
+    ASSERT(result_d.r == start.r + 1, assertion_failed_msg);
+    ASSERT(result_d.s == start.s - 1, assertion_failed_msg);
+
+    assertion_failed_msg = "HexCubic get adjacent hex: result_e did not equal expected";
+    const HexCubic result_e = Hex_GetAdjacentHex(start, SPlaneQNeg);
+    ASSERT(result_e.q == start.q - 1, assertion_failed_msg);
+    ASSERT(result_e.r == start.r + 1, assertion_failed_msg);
+    ASSERT(result_e.s == start.s, assertion_failed_msg);
+
+    assertion_failed_msg = "HexCubic get adjacent hex: result_f did not equal expected";
+    const HexCubic result_f = Hex_GetAdjacentHex(start, SPlaneQPos);
+    ASSERT(result_f.q == start.q + 1, assertion_failed_msg);
+    ASSERT(result_f.r == start.r - 1, assertion_failed_msg);
+    ASSERT(result_f.s == start.s, assertion_failed_msg);
+
+    assertion_failed_msg = "HexCubic get adjacent hex: result_g did not equal expected";
+    const HexCubic result_g = Hex_GetAdjacentHex(start, HexDirectionZero);
+    ASSERT(result_g.q == start.q, assertion_failed_msg);
+    ASSERT(result_g.r == start.r, assertion_failed_msg);
+    ASSERT(result_g.s == start.s, assertion_failed_msg);
+
+    return 0;
+}
+
+
 int Test_HexLine(void)
 {
     

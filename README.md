@@ -1,4 +1,5 @@
 # Cubic Hex
+My implementation of the hexagonal grid library described in this excellent resource: <https://www.redblobgames.com/grids/hexagons/>
 
 ## Quick start
 ### Build the library - TODO

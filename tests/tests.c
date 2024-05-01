@@ -1,7 +1,6 @@
 #include <stdio.h>
+
 #include "tests.h"
-
-
 
 
 int RunTests(void)
@@ -12,6 +11,7 @@ int RunTests(void)
         Test_HexDistanceFromOrigin,
         Test_HexDistance,
         Test_HexDirection,
+        Test_HexGetAdjacentHex,
         Test_HexLine,
 
         Test_HexSerDe,

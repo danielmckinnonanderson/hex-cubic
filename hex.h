@@ -17,28 +17,30 @@ typedef struct HexCubic {
     int8_t s;
 } HexCubic;
 
+typedef enum HexDirection {
+    RPlaneQNeg = 0,
+    RPlaneQPos,
+    QPlaneRNeg,
+    QPlaneRPos,
+    SPlaneQNeg,
+    SPlaneQPos,
+    HexDirectionZero,
+} HexDirection;
 
-struct HexNormalVectors {
-    const HexCubic ZERO;
-    const HexCubic R_PLANE_Q_NEG;
-    const HexCubic R_PLANE_Q_POS;
-    const HexCubic Q_PLANE_R_NEG;
-    const HexCubic Q_PLANE_R_POS;
-    const HexCubic S_PLANE_Q_NEG;
-    const HexCubic S_PLANE_Q_POS;
-};
 
 // Normal vectors:
-// ZERO          = {  0,  0,  0 },
 // R_PLANE_Q_NEG = { -1,  0,  1 },
 // R_PLANE_Q_POS = {  1,  0, -1 },
 // Q_PLANE_R_NEG = {  0, -1,  1 },
 // Q_PLANE_R_POS = {  0,  1, -1 },
 // S_PLANE_Q_NEG = { -1,  1,  0 },
 // S_PLANE_Q_POS = {  1, -1,  0 },
-extern const struct HexNormalVectors HEX_NORMALS;
+// ZERO          = {  0,  0,  0 },
+//
+// Use the HexDirection enum as an index into this array
+extern const HexCubic HEX_NORMALS[7];
 
-// Turn a triple of ints into a single signed UUID
+// Turn a triple of ints into a single unsigned UUID
 uint32_t Hex_Serialize(HexCubic *hex);
 
 // Turn a UUID into a Hex
@@ -58,6 +60,9 @@ uint16_t Hex_DistanceFromOrigin(HexCubic hex);
 // In other words, a line beginning with start and ending at
 //  end would consist of 5 spaces, so the distance between them is 4.
 uint16_t Hex_Distance(HexCubic start, HexCubic end);
+
+// Get the Hex which is a neighbor of start in the specified direction
+HexCubic Hex_GetAdjacentHex(HexCubic start, HexDirection direction);
 
 // Get a line of hexes from a to b
 // Where distance is the result of Hex_Distance(a, b)
