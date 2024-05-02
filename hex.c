@@ -88,13 +88,8 @@ HexCubic Hex_GetAdjacentHex(HexCubic start, HexDirection direction)
 }
 
 
-HexCubic *Hex_Line(HexCubic start, HexCubic end, uint16_t line_length)
+uint32_t *HexId_Line(HexCubicId start, HexCubicId end)
 {
-    HexCubic line[line_length];
-
-    for (int i = 0; i <= line_length; i++) {
-    }
-
-    return line;
+    return 0;
 }
 

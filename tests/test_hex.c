@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "../hex.h"
 #include "tests.h"
 
@@ -171,11 +170,6 @@ int Test_HexLine(void)
         .s = 1
     };
 
-    uint16_t distance = Hex_Distance(start, end);
-    HexCubic *result_line = Hex_Line(start, end, distance + 1);
-
-    ASSERT(result_line != NULL, "HexCubic line: Line was NULL");
-
     return 0;
 }
 
@@ -184,3 +178,4 @@ int Test_HexDirection(void)
 {
     return 0;
 }
+

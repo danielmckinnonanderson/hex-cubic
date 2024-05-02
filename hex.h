@@ -64,13 +64,16 @@ uint16_t Hex_Distance(HexCubic start, HexCubic end);
 // Get the Hex which is a neighbor of start in the specified direction
 HexCubic Hex_GetAdjacentHex(HexCubic start, HexDirection direction);
 
-// Get a line of hexes from a to b
+// Put a line of hexes from a to b into line_buffer
 // Where distance is the result of Hex_Distance(a, b)
 // The line is a list of hexes from a to b.
 // The caller must allocate & free the line, (distance + 1) * sizeof(HexCubic)
-HexCubic *Hex_Line(HexCubic start, HexCubic end, uint16_t line_length);
+void Hex_Line(HexCubic start, HexCubic end, HexCubic *line_buffer);
 
-// Wraps Hex_Line, but instead returns a UUID array
-int *HexId_Line(HexCubic a, HexCubic b, uint16_t distance, HexCubicId *line);
+// Return an array of hexes (serialized as integers)
+// From start to end, where start is the first element of
+// the line and end is the last.
+uint32_t *HexId_Line(HexCubicId start, HexCubicId end);
 
 #endif // HEX_H
+
