@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,13 +8,13 @@
 
 
 const HexCubic HEX_NORMALS[7] = {
-    { -1,  0,  1 }, // RPlaneQNeg
-    {  1,  0, -1 }, // RPlaneQPos
-    {  0, -1,  1 }, // QPlaneRNeg
-    {  0,  1, -1 }, // QPlaneRPos
-    { -1,  1,  0 }, // SPlaneQNeg
-    {  1, -1,  0 }, // SPlaneQPos
-    {  0,  0,  0 }, // Zero
+    {  0,  0,  0 }, // HEX_ZERO
+    { -1,  0,  1 }, // HEX_R_PLANE_Q_NEG
+    {  1,  0, -1 }, // HEX_R_PLANE_Q_POS
+    {  0, -1,  1 }, // HEX_Q_PLANE_R_NEG
+    {  0,  1, -1 }, // HEX_Q_PLANE_R_POS
+    { -1,  1,  0 }, // HEX_S_PLANE_Q_NEG
+    {  1, -1,  0 }, // HEX_S_PLANE_Q_POS
 };
 
 
@@ -67,13 +68,13 @@ HexCubic Hex_Subtract(HexCubic a, HexCubic b)
 }
 
 
-uint16_t Hex_DistanceFromOrigin(HexCubic hex)
+size_t Hex_DistanceFromOrigin(HexCubic hex)
 {
     return (abs(hex.q) + abs(hex.r) + abs(hex.s)) / 2;
 }
 
 
-uint16_t Hex_Distance(HexCubic start, HexCubic end)
+size_t Hex_Distance(HexCubic start, HexCubic end)
 {
     const HexCubic difference = Hex_Subtract(start, end);
     return Hex_DistanceFromOrigin(difference);
@@ -85,11 +86,5 @@ HexCubic Hex_GetAdjacentHex(HexCubic start, HexDirection direction)
     assert(direction >= 0 && direction <= 7);
     const HexCubic direction_vector = HEX_NORMALS[direction];
     return Hex_Add(start, direction_vector);
-}
-
-
-uint32_t *HexId_Line(HexCubicId start, HexCubicId end)
-{
-    return 0;
 }
 
